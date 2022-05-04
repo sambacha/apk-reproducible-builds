@@ -1,4 +1,6 @@
-FROM debian:stretch
+FROM debian:stretch-20220418 AS builder
+ARG DEBIAN_FRONTEND=noninteractive
+
 
 COPY docker/ docker/
 COPY docker/apt.conf docker/sources.list /etc/apt/

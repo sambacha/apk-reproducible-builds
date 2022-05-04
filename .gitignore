@@ -32,3 +32,4 @@ coverage/
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+platform-tools/*
