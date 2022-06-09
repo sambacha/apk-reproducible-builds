@@ -1,5 +1,12 @@
 # Reproducible Builds
 
+```shell
+apt-get install -y strip-nondeterminism
+````
+
+```shell
+wget https://salsa.debian.org/reproducible-builds/strip-nondeterminism/-/raw/master/bin/strip-nondeterminism
+```
 
 ## TL;DR
 
