@@ -1,4 +1,8 @@
-FROM debian:stretch-20220418 AS builder
+# syntax=docker/dockerfile:1.4
+
+# FROM debian:stretch-20220418 AS builder
+FROM buildpack-deps:bullseye-scm@sha256:ecad7c5bf28a62451725306f097e8c731eeeed1c21f4763c1f47eed26e38a9c7 AS builder
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 
@@ -7,9 +11,19 @@ COPY docker/apt.conf docker/sources.list /etc/apt/
 
 RUN dpkg --add-architecture i386
 
-RUN apt-get update -y && apt-get install -y apt-utils
+ENV RUN DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -y && apt-get install -y $(cat docker/dependencies.txt)
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+  apt-utils \
+  \
+  $(cat docker/dependencies.txt) \
+  && rm -rf /var/lib/apt/lists/* 
+  
+# RUN apt-get update -y && apt-get install -y 
+
+# RUN apt-get update -y && apt-get install -y $(cat docker/dependencies.txt)
 RUN docker/print-versions.sh docker/dependencies.txt
 
 ENV ANDROID_COMMAND_LINE_TOOLS_FILENAME commandlinetools-linux-7583922_latest.zip
