@@ -11,8 +11,6 @@ COPY docker/apt.conf docker/sources.list /etc/apt/
 
 RUN dpkg --add-architecture i386
 
-ENV RUN DEBIAN_FRONTEND=noninteractive
-
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
